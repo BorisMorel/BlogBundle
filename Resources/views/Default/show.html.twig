@@ -1,0 +1,8 @@
+{% extends '::layout.html.twig' %}
+
+{% block body %}
+<h1>{{ comments[0].blog.title }}</h1>
+{% for comment in comments %}
+<h2>{{ comment.body }}</h2>
+{% endfor %}
+{% endblock body %}

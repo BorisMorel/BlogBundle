@@ -1,0 +1,24 @@
+blog:
+  pattern:            /blog
+  defaults:           { _controller: BlogBundle:Default:index }
+
+blog_show:
+  pattern:              /blog/{blog_id}
+  defaults:             { _controller: BlogBundle:Default:show }
+  requirements:   
+    blog_id:            "[[:digit:]]+"
+    _method:            GET
+
+blog_comment_new:
+  pattern:              /blog/{blog_id}/comment/new
+  defaults:             { _controller: BlogBundle:Default:commentNew }
+  requirements:
+    blog_id:            "[[:digit:]]+"
+    _method:            GET
+
+blog_comment_create:
+  pattern:              /blog/{blog_id}/comment
+  defaults:             { _controller: BlogBundle:Default:commentCreate }
+  requirements:
+    blog_id:            "[[:digit:]]+"
+    _method:            POST

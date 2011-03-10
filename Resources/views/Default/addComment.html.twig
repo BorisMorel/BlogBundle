@@ -1,0 +1,9 @@
+{% extends "::layout.html.twig" %}
+
+{% block body %}
+<form action="{{ path('blog_comment_create', {'blog_id': app.request.get('blog_id') }) }}" method="post">
+  {{ form_errors(form) }}
+  {{ form_field(form) }}
+  <input type="submit" />
+</form>
+{% endblock body %}

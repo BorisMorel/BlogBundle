@@ -1,0 +1,12 @@
+{% extends '::layout.html.twig' %}
+
+{% block body %}
+{% for r in res %}
+<a href="{{ path('blog_show', {'blog_id': r.id}) }}">{{ r.title }}</a>
+{% for c in r.blogComments %}
+{{ c.getId }}
+{% endfor %}
+<br />
+{% endfor %}
+
+{% endblock body%}
