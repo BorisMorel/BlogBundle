@@ -22,3 +22,19 @@ blog_comment_create:
   requirements:
     blog_id:            "[[:digit:]]+"
     _method:            POST
+
+blog_comment_edit:
+  pattern:              /blog/{blog_id}/comment/{comment_id}/edit
+  defaults:             { _controller: BlogBundle:Default:commentEdit }
+  requirements:
+    blog_id:            "[[:digit:]]+"
+    comment_id:         "[[:digit:]]+"
+    _method:            GET
+
+blog_comment_update:
+  pattern:              /blog/{blog_id}/comment/{comment_id}
+  defaults:             { _controller: BlogBundle:Default:commentUpdate }
+  requirements:
+    blog_id:            "[[:digit:]]+"
+    comment_id:         "[[:digit:]]+"
+    _method:            POST

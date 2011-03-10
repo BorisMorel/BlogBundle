@@ -63,4 +63,32 @@ class DefaultController extends Controller
  
       return $this->render('BlogBundle:Default:addComment.html.twig', array('form' => $form));
     }
+
+    public function commentEditAction($comment_id)
+    {
+      $em = $this->get('doctrine.orm.entity_manager');
+
+      $form = AddCommentForm::create($this->get('form.context'), 'editComment');
+      $form->setData($em->getReference('BlogBundle:BlogComment', $comment_id));
+
+      return $this->render('BlogBundle:Default:addComment.html.twig', array('form' => $form, 'notNew' => true));
+    }
+
+    public function commentUpdateAction($blog_id, $comment_id)
+    {
+      $em = $this->get('doctrine.orm.entity_manager');
+      $comment = $em->getReference('BlogBundle:BlogComment', $comment_id);
+      $form = AddCommentForm::create($this->get('form.context'), 'editComment');
+
+      $form->setData($comment);
+      $form->bind($this->get('request'), $comment);
+
+      if($form->isValid())
+        {
+          $em->persist($form->getData());
+          $em->flush();
+        }
+      
+      return $this->render('BlogBundle:Default:addComment.html.twig', array('form' => $form, 'notNew' => true));
+    }
 }
