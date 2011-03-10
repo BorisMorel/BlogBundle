@@ -25,7 +25,7 @@ class DefaultController extends Controller
     public function showAction($blog_id)
     {
       if(!$blog_id)
-        throw new InvalidArgumentException('$blog_id is mandatory');
+        throw new NotFoundHttpException('$blog_id is mandatory');
       
       $comments = $this->get('doctrine.orm.entity_manager')
         ->getRepository('BlogBundle:BlogComment')
@@ -48,7 +48,7 @@ class DefaultController extends Controller
       
       $em = $this->get('doctrine.orm.entity_manager');
 
-      $request = new BlogComment();
+   $request = new BlogComment();
       $request->setBlog($em->getReference('BlogBundle:Blog', $blog_id));
 
       $form = AddCommentForm::create($this->get('form.context'), 'addComment');
