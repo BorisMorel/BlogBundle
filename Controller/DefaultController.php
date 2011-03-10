@@ -3,7 +3,7 @@ namespace imag\BlogBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller,
   Symfony\Component\HttpFoundation\RedirectResponse,
-  Symfony\Component\DependencyInjection\Exception\InvalidArgumentException,
+  Symfony\Component\HttpKernel\Exception\NotFoundHttpException,
   imag\BlogBundle\Form\AddCommentForm,
   imag\BlogBundle\Entity\BlogComment;
 
@@ -44,7 +44,7 @@ class DefaultController extends Controller
     public function commentCreateAction($blog_id)
     {
       if(!$blog_id)
-        throw new InvalidArgumentException('$blog_id is mandatory');
+        throw new NotFoundHttpException('$blog_id is mandatory');
       
       $em = $this->get('doctrine.orm.entity_manager');
 
@@ -66,6 +66,9 @@ class DefaultController extends Controller
 
     public function commentEditAction($comment_id)
     {
+      if(!$comment_id)
+        throw new NotFoundHttpException('$comment_id is mandatory');
+
       $em = $this->get('doctrine.orm.entity_manager');
 
       $form = AddCommentForm::create($this->get('form.context'), 'editComment');
@@ -76,6 +79,9 @@ class DefaultController extends Controller
 
     public function commentUpdateAction($blog_id, $comment_id)
     {
+      if(!$blog_id || !$comment_id)
+        throw new NotFoundHttpException('$blog_id and $comment_id are mandatories');
+
       $em = $this->get('doctrine.orm.entity_manager');
       $comment = $em->getReference('BlogBundle:BlogComment', $comment_id);
       $form = AddCommentForm::create($this->get('form.context'), 'editComment');
