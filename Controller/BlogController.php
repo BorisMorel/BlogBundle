@@ -3,7 +3,9 @@ namespace imag\BlogBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller,
   Symfony\Component\HttpFoundation\RedirectResponse,
-  Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+  Symfony\Component\HttpKernel\Exception\NotFoundHttpException,
+  imag\BlogBundle\Form\BlogForm,
+  imag\BlogBundle\Entity\Blog;
  
 class BlogController extends Controller
 {

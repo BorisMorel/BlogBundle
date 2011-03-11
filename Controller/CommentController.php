@@ -4,7 +4,7 @@ namespace imag\BlogBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller,
   Symfony\Component\HttpFoundation\RedirectResponse,
   Symfony\Component\HttpKernel\Exception\NotFoundHttpException,
-  imag\BlogBundle\Form\AddCommentForm,
+  imag\BlogBundle\Form\CommentForm,
   imag\BlogBundle\Entity\BlogComment;
 
 class CommentController extends Controller
@@ -12,7 +12,7 @@ class CommentController extends Controller
   
   public function commentNewAction()
   {
-    $form = AddCommentForm::create($this->get('form.context'), 'addComment');
+    $form = CommentForm::create($this->get('form.context'), 'addComment');
 
     return $this->render('BlogBundle:Comment:newComment.html.twig', array('form' => $form));
   }
@@ -27,7 +27,7 @@ class CommentController extends Controller
     $request = new BlogComment();
     $request->setBlog($em->getReference('BlogBundle:Blog', $blog_id));
 
-    $form = AddCommentForm::create($this->get('form.context'), 'addComment');
+    $form = CommentForm::create($this->get('form.context'), 'addComment');
     $form->bind($this->get('request'), $request);
      
     if($form->isValid())
@@ -47,7 +47,7 @@ class CommentController extends Controller
 
     $em = $this->get('doctrine.orm.entity_manager');
 
-    $form = AddCommentForm::create($this->get('form.context'), 'editComment');
+    $form = CommentForm::create($this->get('form.context'), 'editComment');
     $form->setData($em->getReference('BlogBundle:BlogComment', $comment_id));
 
     return $this->render('BlogBundle:Comment:newComment.html.twig', array('form' => $form, 'notNew' => true));
@@ -60,7 +60,7 @@ class CommentController extends Controller
 
     $em = $this->get('doctrine.orm.entity_manager');
     $comment = $em->getReference('BlogBundle:BlogComment', $comment_id);
-    $form = AddCommentForm::create($this->get('form.context'), 'editComment');
+    $form = CommentForm::create($this->get('form.context'), 'editComment');
 
     $form->setData($comment);
     $form->bind($this->get('request'), $comment);
