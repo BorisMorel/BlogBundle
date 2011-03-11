@@ -1,39 +1,65 @@
 blog:
-  pattern:            /blog
-  defaults:           { _controller: BlogBundle:Default:index }
+  pattern:              /blog
+  defaults:             { _controller: BlogBundle:Blog:index }
 
 blog_show:
   pattern:              /blog/{blog_id}
-  defaults:             { _controller: BlogBundle:Default:show }
+  defaults:             { _controller: BlogBundle:Blog:show }
   requirements:   
     blog_id:            "[[:digit:]]+"
     _method:            GET
 
-blog_comment_new:
-  pattern:              /blog/{blog_id}/comment/new
-  defaults:             { _controller: BlogBundle:Default:commentNew }
+blog_new:
+  pattern:              /blog/new
+  defaults:             { _controller: BlogBundle:Blog:new }
+  requirements:
+    _method:            GET
+
+blog_create:
+  pattern:              /blog
+  defaults:             { _controller: BlogBundle:Blog:create }
+  requirements:
+    _method:            POST
+
+blog_edit:
+  pattern:              /blog/{blog_id}/edit
+  defaults:             { _controller: BlogBundle:Blog:edit }
   requirements:
     blog_id:            "[[:digit:]]+"
     _method:            GET
 
-blog_comment_create:
+blog_update:
+  pattern:              /blog/{blog_id}
+  defaults:             { _controller: BlogBundle:Blog:update }
+  requirements:
+    blog_id:            "[[:digit:]]+"
+    _method:            GET
+
+comment_new:
+  pattern:              /blog/{blog_id}/comment/new
+  defaults:             { _controller: BlogBundle:Comment:commentNew }
+  requirements:
+    blog_id:            "[[:digit:]]+"
+    _method:            GET
+
+comment_create:
   pattern:              /blog/{blog_id}/comment
-  defaults:             { _controller: BlogBundle:Default:commentCreate }
+  defaults:             { _controller: BlogBundle:Comment:commentCreate }
   requirements:
     blog_id:            "[[:digit:]]+"
     _method:            POST
 
-blog_comment_edit:
+comment_edit:
   pattern:              /blog/{blog_id}/comment/{comment_id}/edit
-  defaults:             { _controller: BlogBundle:Default:commentEdit }
+  defaults:             { _controller: BlogBundle:Comment:commentEdit }
   requirements:
     blog_id:            "[[:digit:]]+"
     comment_id:         "[[:digit:]]+"
     _method:            GET
 
-blog_comment_update:
+comment_update:
   pattern:              /blog/{blog_id}/comment/{comment_id}
-  defaults:             { _controller: BlogBundle:Default:commentUpdate }
+  defaults:             { _controller: BlogBundle:Comment:commentUpdate }
   requirements:
     blog_id:            "[[:digit:]]+"
     comment_id:         "[[:digit:]]+"

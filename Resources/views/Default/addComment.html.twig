@@ -2,9 +2,9 @@
 
 {% block body %}
 {% if notNew is defined %}
-<form action="{{ path('blog_comment_update', {'blog_id': app.request.get('blog_id'), 'comment_id': app.request.get('comment_id') }) }}" method="post">
+<form action="{{ path('comment_update', {'blog_id': app.request.get('blog_id'), 'comment_id': app.request.get('comment_id') }) }}" method="post">
 {% else %}
-<form action="{{ path('blog_comment_create', {'blog_id': app.request.get('blog_id') }) }}" method="post">
+<form action="{{ path('comment_create', {'blog_id': app.request.get('blog_id') }) }}" method="post">
 {% endif %}
   {{ form_errors(form) }}
   {{ form_field(form) }}
