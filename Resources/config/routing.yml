@@ -1,6 +1,8 @@
 blog:
   pattern:              /blog
   defaults:             { _controller: BlogBundle:Blog:index }
+  requirements:
+    _method:            GET
 
 blog_show:
   pattern:              /blog/{blog_id}

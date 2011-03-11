@@ -1,0 +1,12 @@
+{% extends "::layout.html.twig" %}
+
+{% block body %}
+{% if notNew is defined %}
+{% else %}
+<form action="{{ path('blog_create') }}" method="post">
+  {% endif %}
+  {{ form_errors(form) }}
+  {{ form_field(form) }}
+  <input type="submit" />
+</form>
+{% endblock body %}

@@ -5,13 +5,13 @@ use Symfony\Component\Form\Form,
   Symfony\Component\Form\TextField,
   Symfony\Component\Form\TextareaField;
 
-class CommentForm extends Form
+
+class BlogForm extends Form
 {
   protected function configure()
   {
-    $this->setDataClass('imag\\BlogBundle\\Entity\\BlogComment');
-    $this->add(new TextareaField('body'));
-    $this->add('pseudo');
+    $this->setDataClass('imag\\BlogBundle\\Entity\\Blog');
+    $this->add('title');
   }
 
 }

@@ -38,12 +38,19 @@ class BlogController extends Controller
     {
       $form = BlogForm::create($this->get('form.context'), 'blogForm');
 
-      return $this->render('BlogBundle:Blog:newBlog.html.twig', array('form' => $form));
+      return $this->render('BlogBundle:Blog:new.html.twig', array('form' => $form));
     }
 
     public function createAction()
     {
+      $em = $this->get('doctrine.orm.entity_manager');
+      $form = BlogForm::create($this->get('form.context'), 'blogForm');
+      $form->bind($this->get('request'), new Blog());
       
+      $em->persist($form->getData());
+      $em->flush();
+
+      return new RedirectResponse($this->get('router')->generate('blog_show', array('blog_id' => $form->getData()->getId())));
     }
 
     public function editAction()

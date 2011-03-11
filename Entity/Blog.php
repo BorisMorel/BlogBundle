@@ -15,21 +15,28 @@ class Blog
 
   /**
    * @orm:Column(type="text")
+   * @validation:NotBlank
+   * @validation:AssertType("string")
    */
   protected $title;
 
   /**
    * @orm:Column(type="datetime")
+   * @validation:NotNull
+   * @validation:DateTime
    */
   protected $created_at;
   
   /**
    * @orm:Column(type="datetime")
+   * @validation:NotNull
+   * @validation:DateTime
    */
   protected $updated_at;
 
   /**
    * @orm:OneToMany(targetEntity="BlogComment", mappedBy="blog")
+   * @validation:AssertType("object")
    */
   protected $blogComments;
 
