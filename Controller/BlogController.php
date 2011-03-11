@@ -47,21 +47,46 @@ class BlogController extends Controller
       $form = BlogForm::create($this->get('form.context'), 'blogForm');
       $form->bind($this->get('request'), new Blog());
       
-      $em->persist($form->getData());
-      $em->flush();
-
-      return new RedirectResponse($this->get('router')->generate('blog_show', array('blog_id' => $form->getData()->getId())));
+      if($form->isValid())
+        {
+          $em->persist($form->getData());
+          $em->flush();
+          return new RedirectResponse($this->get('router')->generate('blog_show', array('blog_id' => $form->getData()->getId())));
+        }
+      
+      return $this->render('BlogBundle:Blog:new.html.twig', array('form' => $form));
     }
 
-    public function editAction()
+    public function editAction($blog_id)
     {
+      if(!$blog_id)
+        throw new NotFoundHttpException('$blog_id is mandatory');
 
+      $em = $this->get('doctrine.orm.entity_manager');
+
+      $form = BlogForm::create($this->get('form.context'), 'blogForm');
+      $form->setData($em->getReference('BlogBundle:Blog', $blog_id));
+      
+      return $this->render('BlogBundle:Blog:new.html.twig', array('form' => $form, 'notNew' => true));
     }
-
-    public function updateAction()
+    
+    public function updateAction($blog_id)
     {
+      if(!$blog_id)
+        throw new NotFoundHttpException('$blog_id is mandatory');
 
+      $em = $this->get('doctrine.orm.entity_manager');
+      $blog = $em->getReference('BlogBundle:Blog', $blog_id);
+
+      $form = BlogForm::create($this->get('form.context'), 'blogForm');
+      $form->bind($this->get('request'), $blog);
+      
+      if($form->isValid())
+        {
+          $em->persist($blog);
+          $em->flush();
+        }
+
+      return $this->render('BlogBundle:Blog:new.html.twig', array('form' => $form, 'notNew' => true));
     }
-
-
 }

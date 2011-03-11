@@ -35,7 +35,7 @@ blog_update:
   defaults:             { _controller: BlogBundle:Blog:update }
   requirements:
     blog_id:            "[[:digit:]]+"
-    _method:            GET
+    _method:            POST
 
 comment_new:
   pattern:              /blog/{blog_id}/comment/new

@@ -44,7 +44,7 @@ class CommentController extends Controller
   {
     if(!$comment_id)
       throw new NotFoundHttpException('$comment_id is mandatory');
-
+    
     $em = $this->get('doctrine.orm.entity_manager');
 
     $form = CommentForm::create($this->get('form.context'), 'editComment');
@@ -60,14 +60,13 @@ class CommentController extends Controller
 
     $em = $this->get('doctrine.orm.entity_manager');
     $comment = $em->getReference('BlogBundle:BlogComment', $comment_id);
+    
     $form = CommentForm::create($this->get('form.context'), 'editComment');
-
-    $form->setData($comment);
     $form->bind($this->get('request'), $comment);
 
     if($form->isValid())
       {
-        $em->persist($form->getData());
+        $em->persist($comment);
         $em->flush();
       }
       

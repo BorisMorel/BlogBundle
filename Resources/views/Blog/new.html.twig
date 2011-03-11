@@ -2,6 +2,7 @@
 
 {% block body %}
 {% if notNew is defined %}
+<form action="{{ path('blog_update', {'blog_id': app.request.get('blog_id')}) }}" method="post">
 {% else %}
 <form action="{{ path('blog_create') }}" method="post">
   {% endif %}
