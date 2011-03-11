@@ -34,7 +34,7 @@ class CommentController extends Controller
       {
         $em->persist($request);
         $em->flush();
-        return new RedirectResponse($this->get('router')->generate('blog'));
+        return new RedirectResponse($this->get('router')->generate('blog_show', array('blog_id' => $blog_id)));
       }
  
     return $this->render('BlogBundle:Comment:new.html.twig', array('form' => $form));
