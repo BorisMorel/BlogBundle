@@ -17,7 +17,7 @@ class BlogController extends Controller
         
       $res = $qb->getQuery()->getResult();
       
-      return $this->render('BlogBundle:Default:index.html.twig', array('res' => $res));
+      return $this->render('BlogBundle:Blog:index.html.twig', array('res' => $res));
     }
 
     public function showAction($blog_id)
@@ -29,10 +29,30 @@ class BlogController extends Controller
         ->getRepository('BlogBundle:BlogComment')
         ->getComments($blog_id);
      
-      return $this->render('BlogBundle:Default:show.html.twig', array('comments' => $comments));
+      return $this->render('BlogBundle:Blog:show.html.twig', array('comments' => $comments));
     }
 
-   
+    public function newAction()
+    {
+      $form = BlogForm::create($this->get('form.context'), 'blogForm');
+
+      return $this->render('BlogBundle:Blog:newBlog.html.twig', array('form' => $form));
+    }
+
+    public function createAction()
+    {
+      
+    }
+
+    public function editAction()
+    {
+
+    }
+
+    public function updateAction()
+    {
+
+    }
 
 
 }

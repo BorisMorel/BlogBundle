@@ -14,7 +14,7 @@ class CommentController extends Controller
   {
     $form = AddCommentForm::create($this->get('form.context'), 'addComment');
 
-    return $this->render('BlogBundle:Default:addComment.html.twig', array('form' => $form));
+    return $this->render('BlogBundle:Comment:newComment.html.twig', array('form' => $form));
   }
 
   public function commentCreateAction($blog_id)
@@ -37,7 +37,7 @@ class CommentController extends Controller
         return new RedirectResponse($this->get('router')->generate('blog'));
       }
  
-    return $this->render('BlogBundle:Default:addComment.html.twig', array('form' => $form));
+    return $this->render('BlogBundle:Comment:newComment.html.twig', array('form' => $form));
   }
 
   public function commentEditAction($comment_id)
@@ -50,7 +50,7 @@ class CommentController extends Controller
     $form = AddCommentForm::create($this->get('form.context'), 'editComment');
     $form->setData($em->getReference('BlogBundle:BlogComment', $comment_id));
 
-    return $this->render('BlogBundle:Default:addComment.html.twig', array('form' => $form, 'notNew' => true));
+    return $this->render('BlogBundle:Comment:newComment.html.twig', array('form' => $form, 'notNew' => true));
   }
 
   public function commentUpdateAction($blog_id, $comment_id)
@@ -71,6 +71,6 @@ class CommentController extends Controller
         $em->flush();
       }
       
-    return $this->render('BlogBundle:Default:addComment.html.twig', array('form' => $form, 'notNew' => true));
+    return $this->render('BlogBundle:Comment:newComment.html.twig', array('form' => $form, 'notNew' => true));
   }
 }
