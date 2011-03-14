@@ -12,7 +12,7 @@ class CommentController extends Controller
   
   public function commentNewAction()
   {
-    $form = CommentForm::create($this->get('form.context'), 'addComment');
+    $form = CommentForm::create($this->get('form.context'), 'commentForm');
 
     return $this->render('BlogBundle:Comment:new.html.twig', array('form' => $form));
   }
@@ -27,7 +27,7 @@ class CommentController extends Controller
     $request = new BlogComment();
     $request->setBlog($em->getReference('BlogBundle:Blog', $blog_id));
 
-    $form = CommentForm::create($this->get('form.context'), 'addComment');
+    $form = CommentForm::create($this->get('form.context'), 'commentForm');
     $form->bind($this->get('request'), $request);
      
     if($form->isValid())
@@ -40,15 +40,19 @@ class CommentController extends Controller
     return $this->render('BlogBundle:Comment:new.html.twig', array('form' => $form));
   }
 
-  public function commentEditAction($comment_id)
+  public function commentEditAction($blog_id, $comment_id)
   {
-    if(!$comment_id)
-      throw new NotFoundHttpException('$comment_id is mandatory');
+    if(!$blog_id || !$comment_id)
+      throw new NotFoundHttpException('$blog_id and $comment_id is mandatory');
     
     $em = $this->get('doctrine.orm.entity_manager');
+    $comment = $em->getReference('BlogBundle:BlogComment', $comment_id);
 
-    $form = CommentForm::create($this->get('form.context'), 'editComment');
-    $form->setData($em->getReference('BlogBundle:BlogComment', $comment_id));
+    if($comment->getBlog()->getId() != $blog_id)
+      throw new NotFoundHttpException(sprintf('This comment_id: %s does not belong to the blog_id: %s', $comment_id, $blog_id));
+    
+    $form = CommentForm::create($this->get('form.context'), 'commentForm');
+    $form->setData($comment);
 
     return $this->render('BlogBundle:Comment:new.html.twig', array('form' => $form, 'notNew' => true));
   }
@@ -61,7 +65,7 @@ class CommentController extends Controller
     $em = $this->get('doctrine.orm.entity_manager');
     $comment = $em->getReference('BlogBundle:BlogComment', $comment_id);
     
-    $form = CommentForm::create($this->get('form.context'), 'editComment');
+    $form = CommentForm::create($this->get('form.context'), 'commentForm');
     $form->bind($this->get('request'), $comment);
 
     if($form->isValid())

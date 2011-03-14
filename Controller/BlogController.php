@@ -12,14 +12,10 @@ class BlogController extends Controller
     public function indexAction()
     {
       $em = $this->get('doctrine.orm.entity_manager');
-      $qb = $em->createQueryBuilder()
-        ->select('b, bc')
-        ->from('BlogBundle:Blog', 'b')
-        ->leftJoin('b.blogComments', 'bc');
-        
-      $res = $qb->getQuery()->getResult();
+      $blogs = $em->getRepository('BlogBundle:Blog')
+        ->getBlogs();
       
-      return $this->render('BlogBundle:Blog:index.html.twig', array('res' => $res));
+      return $this->render('BlogBundle:Blog:index.html.twig', array('blogs' => $blogs));
     }
 
     public function showAction($blog_id)

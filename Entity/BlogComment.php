@@ -4,6 +4,7 @@ namespace imag\BlogBundle\Entity;
 /** 
  * @orm:Entity(repositoryClass="imag\BlogBundle\Repository\BlogCommentRepository")
  * @orm:Table(name="Blog_comment")
+ * @orm:HasLifecycleCallbacks
  */
 class BlogComment
 {
@@ -28,18 +29,18 @@ class BlogComment
   protected $pseudo;
   
   /**
-   * @orm:Column(type="datetime")
+   * @orm:Column(name="created_at", type="datetime")
    * @validation:DateTime
    * @validation:NotNull
    */
-  protected $created_at;
+  protected $createdAt;
   
   /**
-   * @orm:Column(type="datetime")
+   * @orm:Column(name="updated_at", type="datetime")
    * @validation:DateTime
    * @validation:NotNull
    */
-  protected $updated_at;
+  protected $updatedAt;
 
   /**
    * @orm:ManyToOne(targetEntity="Blog", inversedBy="blogComments")
@@ -51,16 +52,17 @@ class BlogComment
 
   public function __construct()
   {
-    $this->created_at = $this->updated_at = new \DateTime('now');
+    $this->createdAt = $this->updatedAt = new \DateTime('now');
   }
   
   /**
    * @orm:PreUpdate
    */
-  public function updated()
+  public function update()
   {
-    $this->updated_at = new \DateTime('now');
+    $this->updatedAt = new \DateTime('now');
   }
+
 
     /**
      * Get id
@@ -113,43 +115,43 @@ class BlogComment
     }
 
     /**
-     * Set created_at
+     * Set createdAt
      *
      * @param datetime $createdAt
      */
     public function setCreatedAt($createdAt)
     {
-        $this->created_at = $createdAt;
+        $this->createdAt = $createdAt;
     }
 
     /**
-     * Get created_at
+     * Get createdAt
      *
      * @return datetime $createdAt
      */
     public function getCreatedAt()
     {
-        return $this->created_at;
+        return $this->createdAt;
     }
 
     /**
-     * Set updated_at
+     * Set updatedAt
      *
      * @param datetime $updatedAt
      */
     public function setUpdatedAt($updatedAt)
     {
-        $this->updated_at = $updatedAt;
+        $this->updatedAt = $updatedAt;
     }
 
     /**
-     * Get updated_at
+     * Get updatedAt
      *
      * @return datetime $updatedAt
      */
     public function getUpdatedAt()
     {
-        return $this->updated_at;
+        return $this->updatedAt;
     }
 
     /**
@@ -159,7 +161,7 @@ class BlogComment
      */
     public function setBlog(\imag\BlogBundle\Entity\Blog $blog)
     {
-      $this->blog = $blog;
+        $this->blog = $blog;
     }
 
     /**

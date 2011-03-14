@@ -12,6 +12,7 @@ class BlogForm extends Form
   {
     $this->setDataClass('imag\\BlogBundle\\Entity\\Blog');
     $this->add('title');
+    $this->add('body');
   }
 
 }

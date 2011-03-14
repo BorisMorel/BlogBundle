@@ -12,4 +12,13 @@ use Doctrine\ORM\EntityRepository;
  */
 class BlogRepository extends EntityRepository
 {
+  public function getBlogs()
+  {
+    $q = $this->createQueryBuilder('b')
+      ->select('b, bc')
+      ->leftJoin('b.blogComments', 'bc')
+      ->getQuery();
+
+    return $q->getResult();
+  }
 }
