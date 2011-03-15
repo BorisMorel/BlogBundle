@@ -1,6 +1,6 @@
 {% extends '::layout.html.twig' %}
 
-{% block title %}List of all blogs{% endblock title %}
+{% block title %}All blogs{% endblock title %}
 
 {% block stylesheets %}
 {{ parent() }}
@@ -22,8 +22,7 @@
       {{blog.body}}
     </div>
     <div class="blogFooter" id="blogFooter_{{blog.id}}">
-     
-      {{blog.getBlogComments.count}} comment{{s}}
+      <a href="{{ path('blog_show', {'blog_id': blog.id}) }}" >{{ blog.getBlogComments.count }}</a> Comment{{s}}
     </div>
   </div>
   {% endfor %}

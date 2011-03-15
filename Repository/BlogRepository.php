@@ -1,5 +1,4 @@
 <?php
-
 namespace imag\BlogBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
@@ -20,5 +19,17 @@ class BlogRepository extends EntityRepository
       ->getQuery();
 
     return $q->getResult();
+  }
+ 
+  public function getComments($blog_id)
+  {
+    $q = $this->createQueryBuilder('b')
+      ->select('b, bc')
+      ->leftJoin('b.blogComments', 'bc')
+      ->where('b.id = ?1')
+      ->setParameter(1, $blog_id)
+      ->getQuery();
+
+    return $q->getSingleResult();
   }
 }

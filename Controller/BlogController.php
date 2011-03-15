@@ -5,6 +5,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller,
   Symfony\Component\HttpFoundation\RedirectResponse,
   Symfony\Component\HttpKernel\Exception\NotFoundHttpException,
   imag\BlogBundle\Form\BlogForm,
+  imag\BlogBundle\Form\CommentForm,
   imag\BlogBundle\Entity\Blog;
  
 class BlogController extends Controller
@@ -23,18 +24,13 @@ class BlogController extends Controller
       if(!$blog_id)
         throw new NotFoundHttpException('$blog_id is mandatory');
       
-      $comments = $this->get('doctrine.orm.entity_manager')
-        ->getRepository('BlogBundle:BlogComment')
+      $blog = $this->get('doctrine.orm.entity_manager')
+        ->getRepository('BlogBundle:Blog')
         ->getComments($blog_id);
-     
-      return $this->render('BlogBundle:Blog:show.html.twig', array('comments' => $comments));
-    }
 
-    public function newAction()
-    {
-      $form = BlogForm::create($this->get('form.context'), 'blogForm');
+      $form = CommentForm::create($this->get('form.context'), 'commentForm');
 
-      return $this->render('BlogBundle:Blog:new.html.twig', array('form' => $form));
+      return $this->render('BlogBundle:Blog:show.html.twig', array('blog' => $blog, 'form' => $form));
     }
 
     public function createAction()
@@ -53,19 +49,6 @@ class BlogController extends Controller
       return $this->render('BlogBundle:Blog:new.html.twig', array('form' => $form));
     }
 
-    public function editAction($blog_id)
-    {
-      if(!$blog_id)
-        throw new NotFoundHttpException('$blog_id is mandatory');
-
-      $em = $this->get('doctrine.orm.entity_manager');
-
-      $form = BlogForm::create($this->get('form.context'), 'blogForm');
-      $form->setData($em->getReference('BlogBundle:Blog', $blog_id));
-      
-      return $this->render('BlogBundle:Blog:new.html.twig', array('form' => $form, 'notNew' => true));
-    }
-    
     public function updateAction($blog_id)
     {
       if(!$blog_id)
@@ -81,6 +64,7 @@ class BlogController extends Controller
         {
           $em->persist($blog);
           $em->flush();
+          return new RedirectResponse($this->get('router')->generate('blog_show', array('blog_id' => $blog_id)));
         }
 
       return $this->render('BlogBundle:Blog:new.html.twig', array('form' => $form, 'notNew' => true));

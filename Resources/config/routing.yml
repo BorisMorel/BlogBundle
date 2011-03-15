@@ -13,7 +13,7 @@ blog_show:
 
 blog_new:
   pattern:              /blog/new
-  defaults:             { _controller: BlogBundle:Blog:new }
+  defaults:             { _controller: BlogBundle:Blog:create }
   requirements:
     _method:            GET
 
@@ -25,7 +25,7 @@ blog_create:
 
 blog_edit:
   pattern:              /blog/{blog_id}/edit
-  defaults:             { _controller: BlogBundle:Blog:edit }
+  defaults:             { _controller: BlogBundle:Blog:update }
   requirements:
     blog_id:            "[[:digit:]]+"
     _method:            GET

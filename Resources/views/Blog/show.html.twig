@@ -1,8 +1,46 @@
 {% extends '::layout.html.twig' %}
 
+{% block title %}{{ blog.title }} comments{% endblock title %}
+
+{% block stylesheets %}
+{{ parent() }}
+<link rel="stylesheet" href="{{ asset('bundles/blog/css/blog.css') }}" />
+{% endblock stylesheets %}
+
 {% block body %}
-<h1>{{ comments[0].blog.title }}</h1>
-{% for comment in comments %}
-<h2>{{ comment.body }}</h2>
-{% endfor %}
+<div id="blog">
+  <div class="blogTitle" id="blogTitle">
+    {{ blog.title }}
+  </div>
+  <div class="blogBody" id="blogBody">
+    {{blog.body}}
+  </div>
+  <div id="comments">
+    {% for comment in blog.getBlogComments %}
+    <div class="comment" id="comment_{{comment.id}}">
+      <div class="commentBody" id="commentBody_{{comment.id}}">
+        {{ comment.body }}
+      </div>
+      <div class="commentFooter" id="commentFooter_{{comment.id}}">
+        {{ comment.pseudo }}
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+<div id="addCommentBlog" class="addComment">
+  <form action="{{ path('comment_create', {'blog_id': blog.id}) }}" method="post">
+    {{ form_errors(form) }}
+    <div class="slider">
+      {{ form_label(form.pseudo) }}
+      {% if form.pseudo.errors is defined %}
+      {{ form_field(form.pseudo, {'class': 'error'}) }}
+      {% else %}
+      {{ form_field(form.pseudo) }}
+      {% endif %}
+    </div>
+    {{ form_hidden(form) }}
+    <input type="submit" value="Send!" />
+  </form>
+</div>
 {% endblock body %}
