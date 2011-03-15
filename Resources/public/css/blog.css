@@ -1,0 +1,77 @@
+a
+{
+    text-decoration: none;
+    color: #3333FF;
+}
+
+a:visited
+{
+    text-decoration: none;
+    color: #6666FF;
+}
+
+a:hover
+{
+    text-decoration: underline;
+}
+
+input
+{
+
+}
+
+textarea
+{
+    width: 400px;
+    height: 120px;
+}
+
+div#blogs, div#blog
+{
+    width: 85%;
+    margin: 0 auto;
+}
+
+div#comments
+{
+    width: 95%;
+    margin: 0 auto;
+}
+
+div.blog, div.comment
+{
+    margin-top: 1em;
+}
+
+div.comment
+{
+    border-bottom: 1px solid #CACACA;
+}
+
+div.blogTitle
+{
+    padding-left: 1.5em;
+    margin-bottom: 0.4em;
+    font-size: 1.3em;
+    color: #000083;
+}
+
+div#blogBody
+{
+    font-size: 1.1em;
+    color: #080844;
+}
+
+div.blogBody, div.commentBody
+{
+    text-indent: 15px;
+    text-align: justify;
+    margin-bottom: 0.3em;
+}
+
+div.blogFooter, div.commentFooter
+{
+    color: #A0A0A0;
+    font-style: italic;
+    text-align: right;
+}
