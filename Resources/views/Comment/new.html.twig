@@ -1,13 +1,21 @@
-{% extends "::layout.html.twig" %}
-
-{% block body %}
-{% if notNew is defined %}
-<form action="{{ path('comment_update', {'blog_id': app.request.get('blog_id'), 'comment_id': app.request.get('comment_id') }) }}" method="post">
-{% else %}
-<form action="{{ path('comment_create', {'blog_id': app.request.get('blog_id') }) }}" method="post">
-{% endif %}
-  {{ form_errors(form) }}
-  {{ form_field(form) }}
-  <input type="submit" />
+{% block addComment %}
+<form action=" {{ path('blog_show_createComment', {'blog_id': app.request.get('blog_id')}) }}" method="post">
+  <ul>
+    {% for field in form.fields %}
+    {% for error in field.errors %}
+    <li>{{ error.messageTemplate }}</li>
+    {% endfor %}
+    {% endfor %}
+  </ul>
+  <div class="slider">
+    {{ form_label(form.pseudo) }}
+    {{ form_field(form.pseudo, {'class': form.pseudo.hasErrors ? "error" : "" }) }}
+  </div>
+  <div class="slider">
+    {{ form_label(form.body) }}
+    {{ form_field(form.body, {'class': form.pseudo.hasErrors ? "error" : "" }) }}
+  </div>
+  {{ form_hidden(form) }}
+  <input type="submit" value="Send!" />
 </form>
-{% endblock body %}
+{% endblock addComment %}

@@ -6,14 +6,15 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller,
   Symfony\Component\HttpKernel\Exception\NotFoundHttpException,
   imag\BlogBundle\Form\BlogForm,
   imag\BlogBundle\Form\CommentForm,
-  imag\BlogBundle\Entity\Blog;
+  imag\BlogBundle\Entity\Blog,
+  imag\BlogBundle\Entity\BlogComment;
  
 class BlogController extends Controller
 {
     public function indexAction()
     {
-      $em = $this->get('doctrine.orm.entity_manager');
-      $blogs = $em->getRepository('BlogBundle:Blog')
+      $blogs = $this->get('doctrine.orm.entity_manager')
+        ->getRepository('BlogBundle:Blog')
         ->getBlogs();
       
       return $this->render('BlogBundle:Blog:index.html.twig', array('blogs' => $blogs));
@@ -24,11 +25,22 @@ class BlogController extends Controller
       if(!$blog_id)
         throw new NotFoundHttpException('$blog_id is mandatory');
       
-      $blog = $this->get('doctrine.orm.entity_manager')
-        ->getRepository('BlogBundle:Blog')
+      $em = $this->get('doctrine.orm.entity_manager');
+      $blog = $em->getRepository('BlogBundle:Blog')
         ->getComments($blog_id);
 
+      $blogComment = new BlogComment();
+      $blogComment->setBlog($em->getReference('BlogBundle:Blog', $blog_id));
+
       $form = CommentForm::create($this->get('form.context'), 'commentForm');
+      $form->bind($this->get('request'), $blogComment);
+
+      if($form->isValid())
+        {
+          $em->persist($form->getData());
+          $em->flush();
+          return new RedirectResponse($this->get('router')->generate('blog_show', array('blog_id' => $blog_id)));
+        }
 
       return $this->render('BlogBundle:Blog:show.html.twig', array('blog' => $blog, 'form' => $form));
     }
@@ -69,4 +81,5 @@ class BlogController extends Controller
 
       return $this->render('BlogBundle:Blog:new.html.twig', array('form' => $form, 'notNew' => true));
     }
+    
 }

@@ -11,6 +11,13 @@ blog_show:
     blog_id:            "[[:digit:]]+"
     _method:            GET
 
+blog_show_createComment:
+  pattern:              /blog/{blog_id}
+  defaults:             { _controller: BlogBundle:Blog:show }
+  requirements:   
+    blog_id:            "[[:digit:]]+"
+    _method:            POST
+
 blog_new:
   pattern:              /blog/new
   defaults:             { _controller: BlogBundle:Blog:create }

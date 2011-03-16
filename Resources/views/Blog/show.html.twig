@@ -29,18 +29,8 @@
   </div>
 </div>
 <div id="addCommentBlog" class="addComment">
-  <form action="{{ path('comment_create', {'blog_id': blog.id}) }}" method="post">
-    {{ form_errors(form) }}
-    <div class="slider">
-      {{ form_label(form.pseudo) }}
-      {% if form.pseudo.errors is defined %}
-      {{ form_field(form.pseudo, {'class': 'error'}) }}
-      {% else %}
-      {{ form_field(form.pseudo) }}
-      {% endif %}
-    </div>
-    {{ form_hidden(form) }}
-    <input type="submit" value="Send!" />
-  </form>
+  {% block addComment %}
+  {% include 'BlogBundle:Comment:new.html.twig' with {'form': form} only %}
+  {% endblock addComment %}
 </div>
 {% endblock body %}

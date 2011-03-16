@@ -75,3 +75,8 @@ div.blogFooter, div.commentFooter
     font-style: italic;
     text-align: right;
 }
+
+.error
+{
+    border: 1px outset RED;
+}
