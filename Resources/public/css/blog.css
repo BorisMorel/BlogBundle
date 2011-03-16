@@ -26,10 +26,24 @@ textarea
     height: 120px;
 }
 
+fieldset
+{
+    border: 1px solid #5050AA;
+    padding: 1em;
+}
+
+legend
+{
+    padding: 0.2em 0.5em;
+    font-weight: bold;
+    color: #4040C0;
+}
+
 div#blogs, div#blog
 {
     width: 85%;
     margin: 0 auto;
+    margin-bottom: 3em;
 }
 
 div#comments
@@ -76,7 +90,39 @@ div.blogFooter, div.commentFooter
     text-align: right;
 }
 
+div#addCommentBlog
+{
+    width: 450px;
+    margin: 0 auto;
+}
+
+div.label
+{
+    margin-top: 0.8em;
+    color: #303080;
+}
+
+div.render
+{
+    padding-left: 1.5em;
+}
+
+div#errors
+{
+    padding-left: 10%;
+    color: red;
+    font-weight: bold;
+.}
+
+div.error
+{
+    border: none;
+}
+
 .error
 {
     border: 1px outset RED;
 }
+
+
+

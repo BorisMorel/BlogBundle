@@ -10,8 +10,8 @@ class CommentForm extends Form
   protected function configure()
   {
     $this->setDataClass('imag\\BlogBundle\\Entity\\BlogComment');
-    $this->add(new TextareaField('body'));
     $this->add('pseudo');
+    $this->add(new TextareaField('body'));
   }
 
 }

@@ -17,13 +17,13 @@ class BlogComment
 
   /** 
    * @orm:Column(type="text")
-   * @validation:NotBlank
+   * @validation:NotBlank(message = "Body mandatory")
    */
   protected $body;
   
   /**
    * @orm:Column(type="string", length="255")
-   * @validation:NotBlank
+   * @validation:NotBlank(message = "Pseudo required")
    * @validation:MaxLength(255)
    */
   protected $pseudo;

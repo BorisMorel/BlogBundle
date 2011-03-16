@@ -1,0 +1,9 @@
+<div id="errors">
+  {% for field in form.fields %}
+  {% for error in field.errors %}
+  <div class="error">
+    -> {{ error.messageTemplate }}
+  </div>
+  {% endfor %}
+  {% endfor %}
+</div>
