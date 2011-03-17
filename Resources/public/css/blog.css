@@ -54,7 +54,7 @@ div#comments
 
 div.blog, div.comment
 {
-    margin-top: 1em;
+    margin-top: 1.3em;
 }
 
 div.comment
@@ -80,14 +80,15 @@ div.blogBody, div.commentBody
 {
     text-indent: 15px;
     text-align: justify;
-    margin-bottom: 0.3em;
+    margin-bottom: 0.5em;
 }
 
 div.blogFooter, div.commentFooter
 {
-    color: #A0A0A0;
+    color: #606060;
     font-style: italic;
     text-align: right;
+    margin-bottom: 0.2em;
 }
 
 div#addCommentBlog

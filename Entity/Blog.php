@@ -11,19 +11,20 @@ class Blog
    * @orm:Id
    * @orm:Column(type="bigint")
    * @orm:GeneratedValue(strategy="AUTO")
+   * @validation:AssertType("integer")
    */
   protected $id;
 
   /**
    * @orm:Column(type="text")
-   * @validation:NotBlank
+   * @validation:NotBlank(message="Title required")
    * @validation:AssertType("string")
    */
   protected $title;
 
   /**
    * @orm:Column(type="text")
-   * @validation:NotBlank
+   * @validation:NotBlank(message="Body mandatory")
    * @validation:AssertType("string")
    */
   protected $body;

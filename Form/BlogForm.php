@@ -11,7 +11,7 @@ class BlogForm extends Form
   protected function configure()
   {
     $this->setDataClass('imag\\BlogBundle\\Entity\\Blog');
-    $this->add('title');
+    $this->add(new TextField('title'));
     $this->add('body');
   }
 

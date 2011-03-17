@@ -48,6 +48,7 @@ class BlogController extends Controller
     public function createAction()
     {
       $em = $this->get('doctrine.orm.entity_manager');
+
       $form = BlogForm::create($this->get('form.context'), 'blogForm');
       $form->bind($this->get('request'), new Blog());
       

@@ -2,11 +2,6 @@
 
 {% block title %}{{ blog.title }} comments{% endblock title %}
 
-{% block stylesheets %}
-{{ parent() }}
-<link rel="stylesheet" href="{{ asset('bundles/blog/css/blog.css') }}" />
-{% endblock stylesheets %}
-
 {% block body %}
 <div id="blog">
   <div class="blogTitle" id="blogTitle">
@@ -22,15 +17,16 @@
         {{ comment.body }}
       </div>
       <div class="commentFooter" id="commentFooter_{{comment.id}}">
-        {{ comment.pseudo }}
+        Posted by {{ comment.pseudo }} on {{ comment.updatedAt.format('Y-m-d (H:i)') }} 
       </div>
     </div>
     {% endfor %}
   </div>
 </div>
 <div id="addCommentBlog" class="addComment">
-  {% block addComment %}
-  {% include 'BlogBundle:Comment:new.html.twig' with {'form': form} only %}
-  {% endblock addComment %}
+  <fieldset>
+    <legend>Add a new comment</legend>
+    {% include 'BlogBundle:Comment:_form.html.twig' with {'form': form} only %}
+  </fieldset>
 </div>
 {% endblock body %}
