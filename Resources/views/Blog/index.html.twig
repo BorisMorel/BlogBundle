@@ -24,6 +24,9 @@
     <div class="blogFooter" id="blogFooter_{{blog.id}}">
       <a href="{{ path('blog_show', {'blog_id': blog.id}) }}" >{{ blog.getBlogComments.count }}</a> Comment{{s}}
     </div>
+    <div class="delete" id="delete_{{blog.id}}">
+      {% include('BlogBundle::_delete.html.twig') with {'route': 'blog_delete', 'id': blog.id, 'token': token } only %}
+    </div>
   </div>
   {% endfor %}
 </div>

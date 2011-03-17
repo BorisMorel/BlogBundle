@@ -4,6 +4,7 @@ namespace imag\BlogBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller,
   Symfony\Component\HttpFoundation\RedirectResponse,
   Symfony\Component\HttpKernel\Exception\NotFoundHttpException,
+  Symfony\Component\Form\Exception\FormException,
   imag\BlogBundle\Form\BlogForm,
   imag\BlogBundle\Form\CommentForm,
   imag\BlogBundle\Entity\Blog,
@@ -16,15 +17,17 @@ class BlogController extends Controller
       $blogs = $this->get('doctrine.orm.entity_manager')
         ->getRepository('BlogBundle:Blog')
         ->getBlogs();
-      
-      return $this->render('BlogBundle:Blog:index.html.twig', array('blogs' => $blogs));
+
+      $token = $this->get('form.csrf_provider')->generateCsrfToken(__NAMESPACE__."\\".__CLASS__);
+ 
+      return $this->render('BlogBundle:Blog:index.html.twig', array('blogs' => $blogs, 'token' => $token));
     }
 
     public function showAction($blog_id)
     {
       if(!$blog_id)
         throw new NotFoundHttpException('$blog_id is mandatory');
-      
+    
       $em = $this->get('doctrine.orm.entity_manager');
       $blog = $em->getRepository('BlogBundle:Blog')
         ->getComments($blog_id);
@@ -83,4 +86,22 @@ class BlogController extends Controller
       return $this->render('BlogBundle:Blog:new.html.twig', array('form' => $form, 'notNew' => true));
     }
     
+    public function deleteAction($blog_id)
+    {
+      if(!$this->get('form.csrf_provider')->isCsrfTokenValid(__NAMESPACE__."\\".__CLASS__, $this->get('request')->get('_token')))
+        throw new FormException('Csrf token invalid');
+      
+      $em = $this->get('doctrine.orm.entity_manager');
+      $blog = $em->getReference('BlogBundle:Blog', $blog_id);
+      $blogComment = $blog->getBlogComments();
+      
+      foreach($blogComment as $comment)
+        {
+          $em->remove($comment);
+        }
+      $em->remove($blog);
+      $em->flush();
+
+      return new RedirectResponse($this->get('router')->generate('blog'));
+    }
 }

@@ -1,6 +1,6 @@
 <form action=" {{ path('blog_show_createComment', {'blog_id': app.request.get('blog_id')}) }}" method="post">
   {{ form_errors(form) }}
-  {% include('BlogBundle::formErrors.html.twig') with {'form': form} only %}
+  {% include('BlogBundle::_formErrors.html.twig') with {'form': form} only %}
   <div class="label">
     {{ form_label(form.pseudo) }}
   </div>

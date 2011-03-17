@@ -44,6 +44,13 @@ blog_update:
     blog_id:            "[[:digit:]]+"
     _method:            POST
 
+blog_delete:
+  pattern:              /blog/{blog_id}
+  defaults:             { _controller: BlogBundle:Blog:delete }
+  requirements:
+    blog_id:            "[[:digit:]]+"
+    _method:            DELETE
+
 comment_new:
   pattern:              /blog/{blog_id}/comment/new
   defaults:             { _controller: BlogBundle:Comment:commentNew }
