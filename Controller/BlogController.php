@@ -92,13 +92,9 @@ class BlogController extends Controller
         throw new FormException('Csrf token invalid');
       
       $em = $this->get('doctrine.orm.entity_manager');
-      $blog = $em->getReference('BlogBundle:Blog', $blog_id);
-      $blogComment = $blog->getBlogComments();
-      
-      foreach($blogComment as $comment)
-        {
-          $em->remove($comment);
-        }
+      $blog = $em->getRepository('BlogBundle:Blog')
+        ->getComments($blog_id);
+   
       $em->remove($blog);
       $em->flush();
 

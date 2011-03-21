@@ -44,7 +44,7 @@ class Blog
   protected $updatedAt;
 
   /**
-   * @orm:OneToMany(targetEntity="BlogComment", mappedBy="blog")
+   * @orm:OneToMany(targetEntity="BlogComment", mappedBy="blog", cascade={"remove"})
    * @validation:AssertType("object")
    */
   protected $blogComments;
