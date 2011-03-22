@@ -17,7 +17,7 @@
         {{ comment.body }}
       </div>
       <div class="commentFooter" id="commentFooter_{{comment.id}}">
-        Posted by {{ comment.pseudo }} on {{ comment.updatedAt.format('Y-m-d (H:i)') }} 
+        Posted by {{ comment.pseudo }} on {{ comment.updatedAt.format('F d, Y (H:i)') }} 
       </div>
     </div>
     {% endfor %}
