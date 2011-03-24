@@ -64,10 +64,18 @@ div.comment
 
 div.blogTitle
 {
-    padding-left: 1.5em;
+    float: left;
     margin-bottom: 0.4em;
     font-size: 1.3em;
     color: #000083;
+}
+
+div.delete
+{
+    clear: right;
+    float: left;
+    margin-left: 1.3em;
+    font-size: 1em;
 }
 
 div#blogBody
@@ -125,5 +133,9 @@ div.error
     border: 1px outset RED;
 }
 
-
-
+div.hook
+{
+    clear:both;
+    height: 0;
+    width: 0;
+}

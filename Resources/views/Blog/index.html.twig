@@ -2,11 +2,6 @@
 
 {% block title %}All blogs{% endblock title %}
 
-{% block stylesheets %}
-{{ parent() }}
-<link rel="stylesheet" href="{{ asset('bundles/blog/css/blog.css') }}" />
-{% endblock stylesheets %}
-
 {% block body %}
 <div id="blogs">
   {% for blog in blogs %}
@@ -16,16 +11,18 @@
   {% endif %}
   <div class="blog" id="blog_{{blog.id}}">
     <div class="blogTitle" id="blogTitle_{{blog.id}}">
-      <a href="{{ path('blog_show', {'blog_id': blog.id}) }}">{{ blog.title }}</a>
+      <a href="{{ path('blog_show', {'blog_id': blog.id}) }}">{{ blog.title }}</a> 
+    </div>
+    <div class="delete" id="delete_{{blog.id}}">
+      {% include('BlogBundle::_delete.html.twig') with {'route': 'blog_delete', 'id': blog.id, 'token': token } only %}
+    </div>
+    <div class="hook">
     </div>
     <div class="blogBody" id="blogBody_{{blog.id}}">
       {{blog.body}}
     </div>
     <div class="blogFooter" id="blogFooter_{{blog.id}}">
       <a href="{{ path('blog_show', {'blog_id': blog.id}) }}" >{{ blog.getBlogComments.count }}</a> Comment{{s}}
-    </div>
-    <div class="delete" id="delete_{{blog.id}}">
-      {% include('BlogBundle::_delete.html.twig') with {'route': 'blog_delete', 'id': blog.id, 'token': token } only %}
     </div>
   </div>
   {% endfor %}

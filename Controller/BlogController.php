@@ -42,6 +42,7 @@ class BlogController extends Controller
         {
           $em->persist($form->getData());
           $em->flush();
+          $this->get('imag.blog.notifier')->newComment($form);
           return new RedirectResponse($this->get('router')->generate('blog_show', array('blog_id' => $blog_id)));
         }
 
