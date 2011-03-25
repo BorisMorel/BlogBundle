@@ -11,7 +11,9 @@
     <service id="imag.blog.notifier" class="%imag.blog.notifier.class%">
       <argument type="service" id="swiftmailer.mailer" />
       <argument>%imag.blog.notifier.params%</argument>
-      <argument type="service" id="templating" />
+      <call method="setTemplating">
+         <argument type="service" id="templating" />
+      </call>
     </service>
   </services>
 </container>

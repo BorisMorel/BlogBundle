@@ -7,11 +7,10 @@ class Notifier
     $params = array(),
     $templating;
 
-  public function __construct(\Swift_Mailer $mailer, array $params, \Symfony\Bundle\TwigBundle\TwigEngine $templating)
+  public function __construct(\Swift_Mailer $mailer, array $params)
   {
     $this->mailer = $mailer;
     $this->params = $params;
-    $this->templating = $templating;
   }
 
   public function newComment(\imag\BlogBundle\Form\CommentForm $form)
@@ -26,5 +25,9 @@ class Notifier
     $this->mailer->send($message);
   }
 
+  public function setTemplating(\Symfony\Bundle\TwigBundle\TwigEngine $templating = null)
+  {
+    $this->templating = $templating;
+  }
 
 }
