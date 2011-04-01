@@ -15,12 +15,12 @@ class BlogController extends Controller
     public function indexAction()
     {
       $blogs = $this->get('doctrine.orm.entity_manager')
-        ->getRepository('BlogBundle:Blog')
+        ->getRepository('Blog:Blog')
         ->getBlogs();
 
       $token = $this->get('form.csrf_provider')->generateCsrfToken(__NAMESPACE__."\\".__CLASS__);
  
-      return $this->render('BlogBundle:Blog:index.html.twig', array('blogs' => $blogs, 'token' => $token));
+      return $this->render('Blog:Blog:index.html.twig', array('blogs' => $blogs, 'token' => $token));
     }
 
     public function showAction($blog_id)
@@ -29,11 +29,11 @@ class BlogController extends Controller
         throw new NotFoundHttpException('$blog_id is mandatory');
     
       $em = $this->get('doctrine.orm.entity_manager');
-      $blog = $em->getRepository('BlogBundle:Blog')
+      $blog = $em->getRepository('Blog:Blog')
         ->getComments($blog_id);
 
       $blogComment = new BlogComment();
-      $blogComment->setBlog($em->getReference('BlogBundle:Blog', $blog_id));
+      $blogComment->setBlog($em->getReference('Blog:Blog', $blog_id));
 
       $form = CommentForm::create($this->get('form.context'), 'commentForm');
       $form->bind($this->get('request'), $blogComment);
@@ -46,7 +46,7 @@ class BlogController extends Controller
           return new RedirectResponse($this->get('router')->generate('blog_show', array('blog_id' => $blog_id)));
         }
 
-      return $this->render('BlogBundle:Blog:show.html.twig', array('blog' => $blog, 'form' => $form));
+      return $this->render('Blog:Blog:show.html.twig', array('blog' => $blog, 'form' => $form));
     }
 
     public function createAction()
@@ -63,7 +63,7 @@ class BlogController extends Controller
           return new RedirectResponse($this->get('router')->generate('blog_show', array('blog_id' => $form->getData()->getId())));
         }
       
-      return $this->render('BlogBundle:Blog:new.html.twig', array('form' => $form));
+      return $this->render('Blog:Blog:new.html.twig', array('form' => $form));
     }
 
     public function updateAction($blog_id)
@@ -72,7 +72,7 @@ class BlogController extends Controller
         throw new NotFoundHttpException('$blog_id is mandatory');
 
       $em = $this->get('doctrine.orm.entity_manager');
-      $blog = $em->getReference('BlogBundle:Blog', $blog_id);
+      $blog = $em->getReference('Blog:Blog', $blog_id);
 
       $form = BlogForm::create($this->get('form.context'), 'blogForm');
       $form->bind($this->get('request'), $blog);
@@ -84,7 +84,7 @@ class BlogController extends Controller
           return new RedirectResponse($this->get('router')->generate('blog_show', array('blog_id' => $blog_id)));
         }
 
-      return $this->render('BlogBundle:Blog:new.html.twig', array('form' => $form, 'notNew' => true));
+      return $this->render('Blog:Blog:new.html.twig', array('form' => $form, 'notNew' => true));
     }
     
     public function deleteAction($blog_id)
@@ -93,7 +93,7 @@ class BlogController extends Controller
         throw new FormException('Csrf token invalid');
       
       $em = $this->get('doctrine.orm.entity_manager');
-      $blog = $em->getRepository('BlogBundle:Blog')
+      $blog = $em->getRepository('Blog:Blog')
         ->getComments($blog_id);
    
       $em->remove($blog);

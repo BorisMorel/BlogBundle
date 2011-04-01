@@ -1,6 +1,6 @@
 <form action="{{ notNew is defined ? path('blog_update', {'blog_id': app.request.get('blog_id')}) : path('blog_create') }}" method="post">
   {{ form_errors(form) }}
-  {% include('BlogBundle::_formErrors.html.twig') with {'form': form} only %}
+  {% include('Blog::_formErrors.html.twig') with {'form': form} only %}
   <div class="label">
     {{ form_label(form.title) }}
   </div>
