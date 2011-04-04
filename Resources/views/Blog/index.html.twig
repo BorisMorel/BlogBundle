@@ -1,4 +1,4 @@
-{% extends 'Blog::layout.html.twig' %}
+{% extends 'BlogBundle::layout.html.twig' %}
 
 {% block title %}All blogs{% endblock title %}
 
@@ -14,7 +14,7 @@
       <a href="{{ path('blog_show', {'blog_id': blog.id}) }}">{{ blog.title }}</a> 
     </div>
     <div class="delete" id="delete_{{blog.id}}">
-      {% include('Blog::_delete.html.twig') with {'route': 'blog_delete', 'id': blog.id, 'token': token } only %}
+      {% include('BlogBundle::_delete.html.twig') with {'route': 'blog_delete', 'id': blog.id, 'token': token } only %}
     </div>
     <div class="hook">
     </div>

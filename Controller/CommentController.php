@@ -14,7 +14,7 @@ class CommentController extends Controller
   {
     $form = CommentForm::create($this->get('form.context'), 'commentForm');
 
-    return $this->render('Blog:Comment:new.html.twig', array('form' => $form));
+    return $this->render('BlogBundle:Comment:new.html.twig', array('form' => $form));
   }
 
   public function commentCreateAction($blog_id)
@@ -25,7 +25,7 @@ class CommentController extends Controller
     $em = $this->get('doctrine.orm.entity_manager');
 
     $request = new BlogComment();
-    $request->setBlog($em->getReference('Blog:Blog', $blog_id));
+    $request->setBlog($em->getReference('BlogBundle:Blog', $blog_id));
 
     $form = CommentForm::create($this->get('form.context'), 'commentForm');
     $form->bind($this->get('request'), $request);
@@ -37,7 +37,7 @@ class CommentController extends Controller
         return new RedirectResponse($this->get('router')->generate('blog_show', array('blog_id' => $blog_id)));
       }
  
-    return $this->render('Blog:Comment:new.html.twig', array('form' => $form));
+    return $this->render('BlogBundle:Comment:new.html.twig', array('form' => $form));
   }
 
   public function commentEditAction($blog_id, $comment_id)
@@ -46,7 +46,7 @@ class CommentController extends Controller
       throw new NotFoundHttpException('$blog_id and $comment_id is mandatory');
     
     $em = $this->get('doctrine.orm.entity_manager');
-    $comment = $em->getReference('Blog:BlogComment', $comment_id);
+    $comment = $em->getReference('BlogBundle:BlogComment', $comment_id);
 
     if($comment->getBlog()->getId() != $blog_id)
       throw new NotFoundHttpException(sprintf('This comment_id: %s does not belong to the blog_id: %s', $comment_id, $blog_id));
@@ -54,7 +54,7 @@ class CommentController extends Controller
     $form = CommentForm::create($this->get('form.context'), 'commentForm');
     $form->setData($comment);
 
-    return $this->render('Blog:Comment:new.html.twig', array('form' => $form, 'notNew' => true));
+    return $this->render('BlogBundle:Comment:new.html.twig', array('form' => $form, 'notNew' => true));
   }
 
   public function commentUpdateAction($blog_id, $comment_id)
@@ -63,7 +63,7 @@ class CommentController extends Controller
       throw new NotFoundHttpException('$blog_id and $comment_id are mandatories');
 
     $em = $this->get('doctrine.orm.entity_manager');
-    $comment = $em->getReference('Blog:BlogComment', $comment_id);
+    $comment = $em->getReference('BlogBundle:BlogComment', $comment_id);
     
     $form = CommentForm::create($this->get('form.context'), 'commentForm');
     $form->bind($this->get('request'), $comment);
@@ -74,6 +74,6 @@ class CommentController extends Controller
         $em->flush();
       }
       
-    return $this->render('Blog:Comment:new.html.twig', array('form' => $form, 'notNew' => true));
+    return $this->render('BlogBundle:Comment:new.html.twig', array('form' => $form, 'notNew' => true));
   }
 }

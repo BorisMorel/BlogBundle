@@ -1,9 +1,9 @@
-{% extends "Blog::layout.html.twig" %}
+{% extends "BlogBundle::layout.html.twig" %}
 
 {% block title %}New blog{% endblock title %}
 
 {% block body %}
 <div id="addBlog">
-  {% include('Blog:Blog:_form.html.twig') %}
+  {% include('BlogBundle:Blog:_form.html.twig') %}
 </div>
 {% endblock body %}
