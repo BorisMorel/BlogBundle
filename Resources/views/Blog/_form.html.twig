@@ -1,0 +1,21 @@
+<form action="{{ new ? path('blog_create') : path('blog_update', {'blog_id': app.request.get('blog_id')}) }}" method="post">
+  <input type="hidden" name="_method" value="{{ new ? 'PUT' : 'POST' }}" />
+  {{ form_errors(form) }}
+  {% include('BlogBundle::_formErrors.html.twig') with {'form': form} only %}
+  <div class="label">
+    {{ form_label(form.title) }}
+  </div>
+  <div class="render">
+    {{ form_widget(form.title, { 'attr' : {'class' : form.title.get('errors') ? 'error' : '' }}) }}
+  </div>
+  <div class="label">
+    {{ form_label(form.body) }}
+  </div>
+  <div class="render">
+    {{ form_widget(form.body, { 'attr' : {'class' : form.body.get('errors') ? 'error' : '' }}) }}
+  </div>
+  {{ form_rest(form) }}
+  
+
+  <input type="submit" value="Create!" />
+</form>

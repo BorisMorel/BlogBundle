@@ -16,7 +16,7 @@ blog_show_createComment:
   defaults:             { _controller: BlogBundle:Blog:show }
   requirements:   
     blog_id:            "[[:digit:]]+"
-    _method:            POST
+    _method:            PUT
 
 blog_new:
   pattern:              /blog/new
@@ -28,7 +28,7 @@ blog_create:
   pattern:              /blog
   defaults:             { _controller: BlogBundle:Blog:create }
   requirements:
-    _method:            POST
+    _method:            PUT
 
 blog_edit:
   pattern:              /blog/{blog_id}/edit

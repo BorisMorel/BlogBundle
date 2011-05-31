@@ -12,7 +12,7 @@ class Blog
 {
   /**
    * @ORM\Id
-   * @ORM\Column(type="bigint")
+   * @ORM\Column(type="integer")
    * @ORM\GeneratedValue(strategy="AUTO")
    * @Assert\Type("integer")
    */
@@ -66,10 +66,11 @@ class Blog
     $this->updatedAt = new \DateTime('now');
   }
 
+
     /**
      * Get id
      *
-     * @return bigint $id
+     * @return integer $id
      */
     public function getId()
     {

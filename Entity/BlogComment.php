@@ -13,7 +13,7 @@ class BlogComment
 {
   /**
    * @ORM\Id
-   * @ORM\Column(type="bigint")
+   * @ORM\Column(type="integer")
    * @ORM\GeneratedValue(strategy="AUTO")
    */
   protected $id;
@@ -66,10 +66,11 @@ class BlogComment
     $this->updatedAt = new \DateTime('now');
   }
 
+
     /**
      * Get id
      *
-     * @return bigint $id
+     * @return integer $id
      */
     public function getId()
     {
