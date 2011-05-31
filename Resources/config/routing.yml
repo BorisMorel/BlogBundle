@@ -50,33 +50,3 @@ blog_delete:
   requirements:
     blog_id:            "[[:digit:]]+"
     _method:            DELETE
-
-comment_new:
-  pattern:              /blog/{blog_id}/comment/new
-  defaults:             { _controller: BlogBundle:Comment:commentNew }
-  requirements:
-    blog_id:            "[[:digit:]]+"
-    _method:            GET
-
-comment_create:
-  pattern:              /blog/{blog_id}/comment
-  defaults:             { _controller: BlogBundle:Comment:commentCreate }
-  requirements:
-    blog_id:            "[[:digit:]]+"
-    _method:            POST
-
-comment_edit:
-  pattern:              /blog/{blog_id}/comment/{comment_id}/edit
-  defaults:             { _controller: BlogBundle:Comment:commentEdit }
-  requirements:
-    blog_id:            "[[:digit:]]+"
-    comment_id:         "[[:digit:]]+"
-    _method:            GET
-
-comment_update:
-  pattern:              /blog/{blog_id}/comment/{comment_id}
-  defaults:             { _controller: BlogBundle:Comment:commentUpdate }
-  requirements:
-    blog_id:            "[[:digit:]]+"
-    comment_id:         "[[:digit:]]+"
-    _method:            POST

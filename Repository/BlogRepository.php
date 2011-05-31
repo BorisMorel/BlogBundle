@@ -1,5 +1,6 @@
 <?php
-namespace imag\BlogBundle\Repository;
+
+namespace IMAG\BlogBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
 

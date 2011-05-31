@@ -1,6 +1,6 @@
 <?php
 
-namespace imag\BlogBundle;
+namespace IMAG\BlogBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 

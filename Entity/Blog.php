@@ -1,51 +1,54 @@
 <?php
-namespace imag\BlogBundle\Entity;
+
+namespace IMAG\BlogBundle\Entity;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @orm:Entity(repositoryClass="imag\BlogBundle\Repository\BlogRepository")
- * @orm:HasLifecycleCallbacks
+ * @ORM\Entity(repositoryClass="IMAG\BlogBundle\Repository\BlogRepository")
+ * @ORM\HasLifecycleCallbacks
  */
 class Blog
 {
   /**
-   * @orm:Id
-   * @orm:Column(type="bigint")
-   * @orm:GeneratedValue(strategy="AUTO")
-   * @validation:AssertType("integer")
+   * @ORM\Id
+   * @ORM\Column(type="bigint")
+   * @ORM\GeneratedValue(strategy="AUTO")
+   * @Assert\Type("integer")
    */
   protected $id;
 
   /**
-   * @orm:Column(type="text")
-   * @validation:NotBlank(message="Title required")
-   * @validation:AssertType("string")
+   * @ORM\Column(type="text")
+   * @Assert\NotBlank(message="Title required")
+   * @Assert\Type("string")
    */
   protected $title;
 
   /**
-   * @orm:Column(type="text")
-   * @validation:NotBlank(message="Body mandatory")
-   * @validation:AssertType("string")
+   * @ORM\Column(type="text")
+   * @Assert\NotBlank(message="Body mandatory")
+   * @Assert\Type("string")
    */
   protected $body;
 
   /**
-   * @orm:Column(name="created_at", type="datetime")
-   * @validation:NotNull
-   * @validation:DateTime
+   * @ORM\Column(name="created_at", type="datetime")
+   * @Assert\NotNull
+   * @Assert\DateTime
    */
   protected $createdAt;
   
   /**
-   * @orm:Column(name="updated_at", type="datetime")
-   * @validation:NotNull
-   * @validation:DateTime
+   * @ORM\Column(name="updated_at", type="datetime")
+   * @Assert\NotNull
+   * @Assert\DateTime
    */
   protected $updatedAt;
 
   /**
-   * @orm:OneToMany(targetEntity="BlogComment", mappedBy="blog", cascade={"remove"})
-   * @validation:AssertType("object")
+   * @ORM\OneToMany(targetEntity="BlogComment", mappedBy="blog", cascade={"remove"})
+   * @Assert\Type("object")
    */
   protected $blogComments;
 
@@ -56,13 +59,12 @@ class Blog
   }
 
   /**
-   * @orm:PreUpdate
+   * @ORM\PreUpdate
    */
   public function updated()
   {
     $this->updatedAt = new \DateTime('now');
   }
-
 
     /**
      * Get id
@@ -92,6 +94,26 @@ class Blog
     public function getTitle()
     {
         return $this->title;
+    }
+
+    /**
+     * Set body
+     *
+     * @param text $body
+     */
+    public function setBody($body)
+    {
+        $this->body = $body;
+    }
+
+    /**
+     * Get body
+     *
+     * @return text $body
+     */
+    public function getBody()
+    {
+        return $this->body;
     }
 
     /**
@@ -137,9 +159,9 @@ class Blog
     /**
      * Add blogComments
      *
-     * @param imag\BlogBundle\Entity\BlogComment $blogComments
+     * @param IMAG\BlogBundle\Entity\BlogComment $blogComments
      */
-    public function addBlogComments(\imag\BlogBundle\Entity\BlogComment $blogComments)
+    public function addBlogComments(\IMAG\BlogBundle\Entity\BlogComment $blogComments)
     {
         $this->blogComments[] = $blogComments;
     }
@@ -152,25 +174,5 @@ class Blog
     public function getBlogComments()
     {
         return $this->blogComments;
-    }
-
-    /**
-     * Set body
-     *
-     * @param text $body
-     */
-    public function setBody($body)
-    {
-        $this->body = $body;
-    }
-
-    /**
-     * Get body
-     *
-     * @return text $body
-     */
-    public function getBody()
-    {
-        return $this->body;
     }
 }

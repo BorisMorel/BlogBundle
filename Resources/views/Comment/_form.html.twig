@@ -1,18 +1,18 @@
-<form action=" {{ path('blog_show_createComment', {'blog_id': app.request.get('blog_id')}) }}#form" method="post" id="form">
+<form action=" {{ path('blog_show_createComment', {'blog_id': app.request.get('blog_id')}) }}#form" method="post" id="form" {{ form_enctype(form) }}>
   {{ form_errors(form) }}
   {% include('BlogBundle::_formErrors.html.twig') with {'form': form} only %}
   <div class="label">
     {{ form_label(form.pseudo) }}
   </div>
   <div class="render">
-    {{ form_field(form.pseudo, {'class': form.pseudo.hasErrors ? "error" : "" }) }}
+    {{ form_widget(form.pseudo, { 'attr' : {'class': form.pseudo.get('errors') ? "error" : "" }} ) }}
   </div>
   <div class="label">
     {{ form_label(form.body) }}
   </div>
   <div class="render">
-    {{ form_field(form.body, {'class': form.body.hasErrors ? "error" : "" }) }}
+    {{ form_widget(form.body, {'attr' : {'class': form.body.get('errors') ? "error" : "" }}) }}
   </div>
-  {{ form_hidden(form) }}
+  {{ form_rest(form) }}
   <input type="submit" value="Send!" />
 </form>

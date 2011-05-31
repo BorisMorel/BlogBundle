@@ -1,17 +1,23 @@
 <?php
-namespace imag\BlogBundle\Form;
 
-use Symfony\Component\Form\Form,
-  Symfony\Component\Form\TextField,
-  Symfony\Component\Form\TextareaField;
+namespace IMAG\BlogBundle\Form;
 
-class CommentForm extends Form
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilder;
+
+class CommentForm extends AbstractType
 {
-  protected function configure()
+  public function buildForm(FormBuilder $builder, array $options)
   {
-    $this->setDataClass('imag\\BlogBundle\\Entity\\BlogComment');
-    $this->add('pseudo');
-    $this->add(new TextareaField('body'));
+    $builder->add('pseudo')
+      ->add('body', 'textarea');
   }
 
+  public function getDefaultOptions(array $options)
+  {
+    return array(
+                 'data_class' => 'IMAG\BlogBundle\Entity\BlogComment',
+                 );
+  }
 }
+

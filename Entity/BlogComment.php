@@ -1,52 +1,55 @@
 <?php
-namespace imag\BlogBundle\Entity;
 
-/** 
- * @orm:Entity(repositoryClass="imag\BlogBundle\Repository\BlogCommentRepository")
- * @orm:Table(name="Blog_comment")
- * @orm:HasLifecycleCallbacks
+namespace IMAG\BlogBundle\Entity;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
+/**
+ * @ORM\Entity(repositoryClass="imag\BlogBundle\Repository\BlogCommentRepository")
+ * @ORM\HasLifecycleCallbacks
+ * @ORM\Table(name="Blog_comment")
  */
 class BlogComment
 {
   /**
-   * @orm:Id
-   * @orm:Column(type="bigint")
-   * @orm:GeneratedValue(strategy="AUTO")
+   * @ORM\Id
+   * @ORM\Column(type="bigint")
+   * @ORM\GeneratedValue(strategy="AUTO")
    */
   protected $id;
 
   /** 
-   * @orm:Column(type="text")
-   * @validation:NotBlank(message = "Body mandatory")
+   * @ORM\Column(type="text")
+   * @Assert\NotBlank(message = "Body mandatory")
    */
   protected $body;
   
   /**
-   * @orm:Column(type="string", length="255")
-   * @validation:NotBlank(message = "Pseudo required")
-   * @validation:MaxLength(255)
+   * @ORM\Column(type="string", length="255")
+   * @Assert\NotBlank(message = "Pseudo required")
+   * @Assert\MaxLength(255)
    */
   protected $pseudo;
   
   /**
-   * @orm:Column(name="created_at", type="datetime")
-   * @validation:DateTime
-   * @validation:NotNull
+   * @ORM\Column(name="created_at", type="datetime")
+   * @Assert\DateTime
+   * @Assert\NotNull
    */
   protected $createdAt;
   
   /**
-   * @orm:Column(name="updated_at", type="datetime")
-   * @validation:DateTime
-   * @validation:NotNull
+   * @ORM\Column(name="updated_at", type="datetime")
+   * @Assert\DateTime
+   * @Assert\NotNull
    */
   protected $updatedAt;
 
   /**
-   * @orm:ManyToOne(targetEntity="Blog", inversedBy="blogComments")
-   * @orm:JoinColumn(name="blog_id", referencedColumnName="id")
-   * @validation:AssertType("object")
-   * @validation:NotNull
+   * @ORM\ManyToOne(targetEntity="Blog", inversedBy="blogComments")
+   * @ORM\JoinColumn(name="blog_id", referencedColumnName="id")
+   * @Assert\Type("object")
+   * @Assert\NotNull
    */
   protected $blog;
 
@@ -56,13 +59,12 @@ class BlogComment
   }
   
   /**
-   * @orm:PreUpdate
+   * @ORM\PreUpdate
    */
   public function update()
   {
     $this->updatedAt = new \DateTime('now');
   }
-
 
     /**
      * Get id
@@ -157,9 +159,9 @@ class BlogComment
     /**
      * Set blog
      *
-     * @param imag\BlogBundle\Entity\Blog $blog
+     * @param IMAG\BlogBundle\Entity\Blog $blog
      */
-    public function setBlog(\imag\BlogBundle\Entity\Blog $blog)
+    public function setBlog(\IMAG\BlogBundle\Entity\Blog $blog)
     {
         $this->blog = $blog;
     }
@@ -167,7 +169,7 @@ class BlogComment
     /**
      * Get blog
      *
-     * @return imag\BlogBundle\Entity\Blog $blog
+     * @return IMAG\BlogBundle\Entity\Blog $blog
      */
     public function getBlog()
     {
