@@ -14,6 +14,9 @@
   <div id="comments">
     {% for comment in blog.getBlogComments %}
     <div class="comment" id="comment_{{comment.id}}">
+      <div class="delete" id="delete_{{ comment.id }}">
+        {% include 'BlogBundle::_delete.html.twig' with {'route': 'comment_delete', 'params': {'blog_id': blog.id, 'comment_id': comment.id}, 'token': token} %}
+      </div>
       <div class="commentBody" id="commentBody_{{comment.id}}">
         {{ comment.body }}
       </div>

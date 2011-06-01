@@ -50,3 +50,10 @@ blog_delete:
   requirements:
     blog_id:            "[[:digit:]]+"
     _method:            DELETE
+
+comment_delete:
+  pattern:              /blog/{blog_id}/comment/{comment_id}
+  defaults:             { _controller: BlogBundle:Comment:delete }
+  requirements:
+    comment_id:         "[[:digit:]]+"
+    _method:            DELETE

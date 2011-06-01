@@ -1,4 +1,4 @@
-<a href="{{ path(route, {'blog_id': id}) }}" onclick="
+<a href="{{ path(route, params) }}" onclick="
 if (confirm('Are you sure?')) 
 { 
 var f = document.createElement('form'); f.style.display = 'none'; this.parentNode.appendChild(f); f.method = 'post'; f.action = this.href; 
