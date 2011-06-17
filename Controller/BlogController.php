@@ -7,14 +7,15 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller,
   Symfony\Component\HttpKernel\Exception\NotFoundHttpException,
   IMAG\BlogBundle\Form\CommentType,
   IMAG\BlogBundle\Form\BlogType,
-  IMAG\BlogBundle\Entity\BlogComment;
+  IMAG\BlogBundle\Entity\BlogComment,
+  IMAG\BlogBundle\Event\CommentEvent;
 
 class BlogController extends Controller
 {
   
   public function indexAction()
   {
-    $blogs = $this->get('doctrine.orm.entity_manager')
+    $blogs = $this->getDoctrine()->getEntityManager()
       ->getRepository('BlogBundle:Blog')
       ->getBlogs();
     
@@ -46,13 +47,19 @@ class BlogController extends Controller
         
         if($form->isValid())
           {
-            $em->persist($blogComment);
+            $data = $form->getData();
+
+            $event = new CommentEvent($blogComment);
+            
+            $this->get('event_dispatcher')->dispatch('imag_blog.new.comment', $event);
+
+            $em->persist($event->getComment());
             $em->flush();
-            $this->get('imag.blog.notifier')->newComment($form);
+          
             return $this->redirect($this->generateUrl('blog_show', array('blog_id' => $blog_id)));
           }
       }
-    
+   
     return $this->render('BlogBundle:Blog:show.html.twig', array('blog' => $blog, 'form' => $form->createView(), 'token' => $token));
   }
 
@@ -71,6 +78,7 @@ class BlogController extends Controller
           {
             $em->persist($form->getData());
             $em->flush();
+           
             return $this->redirect($this->generateUrl('blog_show', array('blog_id' => $form->getData()->getId())));
           }
       }
@@ -116,6 +124,14 @@ class BlogController extends Controller
     $em->flush();
 
     return $this->redirect($this->generateUrl('blog'));
+  }
+
+  public function testAction()
+  {
+    $form = $this->get('form.factoty')
+      ->create(new ContactType());
+
+    return $this->render('BlogBundle:Contact:contact.html.twig', array('form' => $form));
   }
 
   private function generateToken()

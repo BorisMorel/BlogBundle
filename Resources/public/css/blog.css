@@ -118,13 +118,23 @@ div.render
 
 div#errors
 {
+    border-top: 1px solid rgb(250, 150, 150);
+    border-bottom: 1px solid rgb(250, 150, 150);
+    margin-bottom: 20px;
+    background-color: rgb(254,220,220);
+}
+/*
+div#errors
+{
     padding-left: 10%;
     color: red;
     font-weight: bold;
-.}
-
+    background: #FIREBRICK;
+}
+*/
 div.error
 {
+    padding: 4px 0px 4px 10px;
     border: none;
 }
 

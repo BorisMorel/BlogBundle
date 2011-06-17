@@ -17,8 +17,8 @@ class CommentType extends AbstractType
   public function getDefaultOptions(array $options)
   {
     return array(
-                 'data_class' => 'IMAG\BlogBundle\Entity\BlogComment',
-                 );
+      'data_class' => 'IMAG\BlogBundle\Entity\BlogComment',
+    );
   }
 }
 

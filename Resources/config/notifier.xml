@@ -5,14 +5,21 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
   <parameters>
     <parameter key="imag.blog.notifier.class">IMAG\BlogBundle\Notifier\Notifier</parameter>
+    <parameter key="imag.blog.notifier.params" type="collection">
+      <parameter key="from">Symfony2_noreply@imag.fr</parameter>
+      <parameter key="to">boris.morel@imag.fr</parameter>
+      <parameter key="subject">[FrontHal] - Blog comment submitted</parameter>
+    </parameter>
+    <parameter key="imag.blog.notifier.template">BlogBundle:Mail:comment_created.html.twig</parameter>
   </parameters>
   
   <services>
-    <service id="imag.blog.notifier" class="%imag.blog.notifier.class%">
-      <argument type="service" id="swiftmailer.mailer" />
+    <service id="imag_blog.notifier" class="%imag.blog.notifier.class%">
+      <argument type="service" id="mailer" />
       <argument>%imag.blog.notifier.params%</argument>
-      <call method="setTemplating">
-         <argument type="service" id="templating" />
+      <argument type="service" id="templating" />
+      <call method="setTemplate">
+        <argument>%imag.blog.notifier.template%</argument>
       </call>
     </service>
   </services>

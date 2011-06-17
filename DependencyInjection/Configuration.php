@@ -1,4 +1,5 @@
 <?php
+/*
 namespace IMAG\BlogBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition,
@@ -17,7 +18,7 @@ class Configuration
           ->scalarNode('from')->end()
           ->scalarNode('to')->end()
           ->scalarNode('subject')->end()
-          ->scalarNode('body_template')->end()
+          ->scalarNode('template')->end()
         ->end()
       ->end();
       
@@ -25,3 +26,4 @@ class Configuration
   }
   
 }
+*/

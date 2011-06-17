@@ -57,3 +57,9 @@ comment_delete:
   requirements:
     comment_id:         "[[:digit:]]+"
     _method:            DELETE
+
+contact:
+  pattern:              /contact
+  defaults:             { _controller: BlogBundle:Contact:contact }
+  requirements:
+    _method:            GET
