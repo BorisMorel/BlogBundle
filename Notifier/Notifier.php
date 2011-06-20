@@ -1,7 +1,11 @@
 <?php
 namespace IMAG\BlogBundle\Notifier;
 
-class Notifier
+use IMAG\BlogBundle\Notifier\NotifierInterface,
+  \Symfony\Bundle\TwigBundle\TwigEngine,
+  \Swift_Mailer;
+
+class Notifier implements NotifierInterface
 {
   private 
     $mailer,
@@ -9,7 +13,7 @@ class Notifier
     $templating,
     $template;
 
-  public function __construct(\Swift_Mailer $mailer, array $params, \Symfony\Bundle\TwigBundle\TwigEngine $templating)
+  public function __construct(Swift_Mailer $mailer, array $params, TwigEngine $templating)
   {
     $this->mailer = $mailer;
     $this->params = $params;

@@ -47,8 +47,6 @@ class BlogController extends Controller
         
         if($form->isValid())
           {
-            $data = $form->getData();
-
             $event = new CommentEvent($blogComment);
             
             $this->get('event_dispatcher')->dispatch('imag_blog.new.comment', $event);

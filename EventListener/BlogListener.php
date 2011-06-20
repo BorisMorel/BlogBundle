@@ -2,19 +2,21 @@
 
 namespace IMAG\BlogBundle\EventListener;
 
-use IMAG\BlogBundle\EventListener\ListenerInterface;
+use IMAG\BlogBundle\EventListener\ListenerInterface,
+  \IMAG\BlogBundle\Notifier\NotifierInterface,
+  \IMAG\BlogBundle\Event\CommentEvent;
 
 class BlogListener implements ListenerInterface
 {
   private
     $notifier;
 
-  public function __construct(\IMAG\BlogBundle\Notifier\Notifier $containerNotifier)
+  public function __construct(NotifierInterface $containerNotifier)
   {
     $this->notifier = $containerNotifier;
   }
 
-  public function onNewComment(\IMAG\BlogBundle\Event\CommentEvent $event)
+  public function onNewComment(CommentEvent $event)
   {
     $this->notifier
       ->set('pseudo', $event->getComment()->getPseudo())

@@ -2,9 +2,12 @@
 
 namespace IMAG\BlogBundle\EventListener;
 
+use \IMAG\BlogBundle\Notifier\NotifierInterface,
+  \IMAG\BlogBundle\Event\CommentEvent;
+
 interface ListenerInterface
 {
-  public function __construct(\IMAG\BlogBundle\Notifier\Notifier $notifierContainer);
+  public function __construct(NotifierInterface $notifierContainer);
 
-  public function onNewComment(\IMAG\BlogBundle\Event\CommentEvent $event);
+  public function onNewComment(CommentEvent $event);
 }
